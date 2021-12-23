@@ -1,0 +1,9 @@
+# POST https://ice.dating/set_data.js HTTP/1.1
+# content-type: application/json
+
+# {
+#     to_user_id: 123, 
+#     msg: "is there new messages?"
+# }
+
+# GET https://ice.dating/get_data.js HTTP/1.1
