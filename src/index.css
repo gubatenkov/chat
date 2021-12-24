@@ -24,6 +24,14 @@ code {
     monospace;
 }
 
+.app {
+  height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .container {
   width: 100%;
   max-width: 1140px;
@@ -33,8 +41,8 @@ code {
 .chat {
   width: 100%;
   max-width: 500px;
-  height: 900px;
-  padding: 20px;
+  /* height: 900px; */
+  padding: 20px 0 20px 20px;
   margin: 0 auto;
 
   background: #ecedef;
@@ -43,6 +51,8 @@ code {
 
 .recipent {
   padding: 0 0 20px 0;
+  margin: 0 20px 0 0;
+
   display: flex;
   align-items: center;
 
@@ -108,7 +118,7 @@ code {
 }
 
 .message {
-  margin: 0 0 8px 0;
+  margin: 0 0 5px 0;
   width: fit-content;
   padding: 12px 16px;
 
@@ -133,9 +143,8 @@ code {
 }
 
 .chat-body {
-  height: 100%;
-  max-height: 788px;
-  padding: 20px 0;
+  height: 400px;
+  /* padding: 20px 0; */
 
   display: flex;
   flex-direction: column;
@@ -143,7 +152,7 @@ code {
 }
 
 .send-message {
-  width: 100%;
+  width: 465px;
   padding: 14px 16px;
 
   border: none;
@@ -197,4 +206,43 @@ code {
   right: 16px;
 
   transform: translateY(-50%);
+}
+
+.message-time {
+  display: block;
+  margin: 0 0 10px 0;
+
+  font-size: 10px;
+  font-weight: 400;
+  color: var(--font-color-secondary);
+}
+
+.message-time.own {
+  text-align: right;
+}
+
+.scrollbox {
+  overflow: auto;
+  visibility: hidden;
+
+  transition: visibility 0.25s;
+}
+
+.chat-body__messages,
+.scrollbox:hover,
+.scrollbox:focus {
+  visibility: visible;
+}
+
+.chat-body__messages {
+  padding: 20px 0 0;
+}
+
+.spinner-box {
+  text-align: center;
+}
+
+.spinner {
+  width: 50px;
+  margin: 50px 0 0;
 }

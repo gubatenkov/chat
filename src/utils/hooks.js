@@ -1,35 +1,61 @@
 import { useEffect, useState } from 'react';
 import {
-  collection,
-  getDocs,
   query,
+  collection,
+  onSnapshot,
   orderBy,
   limit,
-  getDoc,
-  doc,
 } from 'firebase/firestore';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { db } from '../firebase';
 
-export const useFetchMessages = (db) => {
+export const useFetchMessages = () => {
   const [messages, setMessages] = useState([]);
   const [isLoading, setLoading] = useState(true);
-  const q = query(collection(db, 'messages'));
-
-  const getCollection = async () => {
-    const querySnap = await getDocs(q);
-    querySnap.forEach((doc) => {
-      if (doc.exists()) {
-        const message = doc.data();
-        setMessages((prev) => prev.concat(message));
-      } else {
-        console.log('no message');
-      }
-    });
-    setLoading(false);
-  };
 
   useEffect(() => {
-    getCollection();
+    const q = query(
+      collection(db, 'messages'),
+      orderBy('createdAt')
+      // limit(10)
+    );
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      const messages = [];
+      querySnapshot.forEach((doc) => {
+        messages.push(doc.data());
+      });
+      setMessages(messages);
+      setLoading(false);
+    });
+    return () => unsubscribe();
+    //eslint-disable-next-line
   }, []);
 
   return [messages, isLoading];
+};
+
+export const useAuth = () => {
+  const [user, setUser] = useState(null);
+  const [isSuccess, setSuccess] = useState(false);
+  const email = process.env.REACT_APP_USER_LOGIN;
+  const password = process.env.REACT_APP_USER_PASS;
+
+  useEffect(() => {
+    const auth = getAuth();
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        setUser(user);
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        setSuccess(false);
+        console.log('Error code:', errorCode, 'Error: message:', errorMessage);
+      });
+    //eslint-disable-next-line
+  }, []);
+
+  return [user, isSuccess];
 };
