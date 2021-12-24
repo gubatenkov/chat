@@ -20,15 +20,20 @@ export const useFetchMessages = () => {
       // limit(6)
     );
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
-      const messages = [];
-      querySnapshot.forEach((doc) => {
-        messages.push(doc.data());
-      });
-      setMessages(messages);
-      setLoading(false);
+      const source = querySnapshot.metadata.hasPendingWrites
+        ? 'Local'
+        : 'Server';
+      if (source) {
+        const messages = [];
+        querySnapshot.forEach((doc) => {
+          messages.push(doc.data());
+        });
+        setMessages(messages);
+        setLoading(false);
+        console.log(messages);
+      }
     });
     return () => unsubscribe();
-    //eslint-disable-next-line
   }, []);
 
   return [messages, isLoading];
