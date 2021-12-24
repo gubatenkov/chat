@@ -9,10 +9,22 @@ import { useFetchMessages } from '../utils/hooks';
 const Chat = () => {
   const [messages, isLoading] = useFetchMessages();
   const ref = useRef(null);
+  const containerRef = useRef(null);
+  // watch container height changes and fire callback
+  const onHeightChange = (containerRef) => {
+    new ResizeObserver(() => {
+      ref.current.scrollIntoView({ block: 'end', behavior: 'smooth' });
+    }).observe(containerRef);
+  };
 
   useEffect(() => {
+    // scroll chat to bottom on mounting
     if (ref?.current && !isLoading) {
       ref.current.scrollIntoView({ block: 'end', behavior: 'smooth' });
+    }
+    // scroll chat to bottom on new message
+    if (containerRef?.current) {
+      onHeightChange(containerRef.current);
     }
   }, [isLoading]);
 
@@ -22,7 +34,7 @@ const Chat = () => {
         <RecipientBlock />
       </div>
       <div className='chat-body scrollbox' tabIndex='0'>
-        <div className='chat-body__messages'>
+        <div className='chat-body__messages' ref={containerRef}>
           {isLoading ? (
             <Spinner />
           ) : (

@@ -30,7 +30,6 @@ export const useFetchMessages = () => {
         });
         setMessages(messages);
         setLoading(false);
-        console.log(messages);
       }
     });
     return () => unsubscribe();
