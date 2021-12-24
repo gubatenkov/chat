@@ -4,7 +4,7 @@ import {
   collection,
   onSnapshot,
   orderBy,
-  limit,
+  // limit,
 } from 'firebase/firestore';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { db } from '../firebase';
@@ -17,7 +17,7 @@ export const useFetchMessages = () => {
     const q = query(
       collection(db, 'messages'),
       orderBy('createdAt')
-      // limit(10)
+      // limit(6)
     );
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const messages = [];
@@ -58,4 +58,18 @@ export const useAuth = () => {
   }, []);
 
   return [user, isSuccess];
+};
+
+export const getTimeFromTimestamp = (timestamp) => {
+  if (!timestamp) return '04:20';
+  const time = new Date(timestamp * 1000);
+  let hours = time.getHours();
+  let minutes = time.getMinutes();
+  if (hours < 10) {
+    hours = `0${hours}`;
+  }
+  if (minutes < 10) {
+    minutes = `0${minutes}`;
+  }
+  return `${hours}:${minutes}`;
 };
