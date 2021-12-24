@@ -257,6 +257,16 @@ code {
   transform: translateY(-50%);
 }
 
+.message-date {
+  display: block;
+  margin: 0 0 10px 0;
+
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--font-color-secondary);
+  text-align: center;
+}
+
 .message-time {
   display: block;
   margin: 0 0 10px 0;

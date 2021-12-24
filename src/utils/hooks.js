@@ -78,3 +78,11 @@ export const getTimeFromTimestamp = (timestamp) => {
   }
   return `${hours}:${minutes}`;
 };
+
+export const getDateFromMessage = (prevDate, currDate) => {
+  return prevDate === currDate
+    ? null
+    : +currDate.split(' ')[0] === new Date(Date.now()).getDate()
+    ? 'Сегодня'
+    : currDate;
+};
