@@ -14,7 +14,7 @@ const SendMessageBar = ({ scrollTo }) => {
     e.preventDefault();
     const docRef = doc(collection(db, 'messages'));
     const { uid } = auth.currentUser;
-
+    if (!messageText) return;
     // Add a new message in collection "messages"
     await setDoc(docRef, {
       text: messageText,
@@ -22,7 +22,6 @@ const SendMessageBar = ({ scrollTo }) => {
       photoUrl: 'https://ice.dating/files/girl_2.png',
       createdAt: Timestamp.now(),
     });
-
     // clear user input
     setMessageText('');
     // scroll messages down
