@@ -1,4 +1,5 @@
 import React from 'react';
+import Spinner from './components/Spinner';
 import Chat from './pages/Chat';
 import { useAuth } from './utils/hooks';
 
@@ -8,9 +9,7 @@ function App() {
 
   return (
     <div className='app'>
-      <div className='container'>
-        <Chat />
-      </div>
+      <div className='container'>{isSuccess ? <Chat /> : <Spinner />}</div>
     </div>
   );
 }

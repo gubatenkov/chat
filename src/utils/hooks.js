@@ -47,6 +47,7 @@ export const useAuth = () => {
         // Signed in
         const user = userCredential.user;
         setUser(user);
+        setSuccess(true);
       })
       .catch((error) => {
         const errorCode = error.code;
