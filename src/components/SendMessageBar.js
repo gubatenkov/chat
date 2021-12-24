@@ -14,7 +14,7 @@ const SendMessageBar = ({ scrollTo }) => {
     e.preventDefault();
     const docRef = doc(collection(db, 'messages'));
     const { uid } = auth.currentUser;
-    if (!messageText) return;
+    if (!messageText.trim()) return;
     // Add a new message in collection "messages"
     await setDoc(docRef, {
       text: messageText,
