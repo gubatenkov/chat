@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { doc, setDoc, collection, Timestamp } from 'firebase/firestore';
+import { auth, db } from '../firebase';
 
 import SendEmojiBtn from './SendEmojiBtn';
 import SendGiftBtn from './SendGiftBtn';
 import SendImageBtn from './SendImageBtn';
 import SendMessageBtn from './SendMessageBtn';
-import { auth, db } from '../firebase';
 
 const SendMessageBar = ({ scrollTo }) => {
   const [messageText, setMessageText] = useState('');
@@ -19,7 +19,6 @@ const SendMessageBar = ({ scrollTo }) => {
     await setDoc(docRef, {
       text: messageText,
       uid,
-      photoUrl: 'https://ice.dating/files/girl_2.png',
       createdAt: Timestamp.now(),
     });
     // clear user input

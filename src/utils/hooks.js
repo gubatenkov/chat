@@ -16,7 +16,7 @@ export const useFetchMessages = () => {
   useEffect(() => {
     const q = query(
       collection(db, 'messages'),
-      orderBy('createdAt')
+      orderBy('createdAt', 'asc')
       // limit(6)
     );
     const unsubscribe = onSnapshot(q, (querySnapshot) => {

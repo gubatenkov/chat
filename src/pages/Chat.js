@@ -25,7 +25,7 @@ const Chat = () => {
   const [messages, isLoading] = useFetchMessages();
   const ref = useRef(null);
   const containerRef = useRef(null);
-  // watch container height changes and fire callback
+  // watch container height; if changes fire callback
   const onHeightChange = (containerRef) => {
     new ResizeObserver(() => {
       ref.current.scrollIntoView({ block: 'end', behavior: 'smooth' });
